@@ -16,9 +16,6 @@ services:
     container_name: homebridge
     restart: always
     network_mode: host
-    ports:
-      - "8581:8581"
-      - "52216:52216"
     environment:
       - TZ=Europe/Moscow
       - PGID=1000
