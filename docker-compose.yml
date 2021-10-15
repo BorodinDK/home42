@@ -1,0 +1,25 @@
+version: "3.7"
+
+services:
+  node-red:
+    restart: always
+    image: nodered/node-red:latest
+    environment:
+      - TZ=Europe/Moscow
+    ports:
+      - "1880:1880"
+    volumes:
+      - ./data/node-red:/data
+  homebridge:
+    image: oznu/homebridge:latest
+    container_name: homebridge
+    restart: always
+    network_mode: host
+    environment:
+      - TZ=Europe/Moscow
+      - PGID=1000
+      - PUID=1000
+      - HOMEBRIDGE_CONFIG_UI=1
+      - HOMEBRIDGE_CONFIG_UI_PORT=8581
+    volumes:
+      - ./data/homebridge:/homebridge
