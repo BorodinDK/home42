@@ -3,6 +3,7 @@ version: "3.7"
 services:
   node-red:
     restart: always
+    container_name: node-red
     image: nodered/node-red:latest
     environment:
       - TZ=Europe/Moscow
@@ -14,6 +15,7 @@ services:
     image: oznu/homebridge:latest
     container_name: homebridge
     restart: always
+    network_mode: host
     ports:
       - "8581:8581"
       - "52216:52216"
