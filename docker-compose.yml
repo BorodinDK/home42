@@ -1,16 +1,17 @@
 version: "3.7"
 
 services:
-#  node-red:
-#    restart: always
-#    container_name: node-red
-#    image: nodered/node-red:latest
-#    environment:
-#      - TZ=Europe/Moscow
+  node-red:
+    restart: always
+    container_name: node-red
+    image: nodered/node-red:latest
+    environment:
+      - TZ=Europe/Moscow
+    network_mode: host
 #    ports:
 #      - 1880:1880
-#    volumes:
-#      - ./data/node-red:/data
+    volumes:
+      - ./data/node-red:/data
 
 
 
