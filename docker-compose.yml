@@ -1,41 +1,55 @@
 version: "3.7"
 
 services:
-  node-red:
-    restart: always
-    container_name: node-red
-    image: nodered/node-red:latest
-    environment:
-      - TZ=Europe/Moscow
-    ports:
-      - 1880:1880
-    volumes:
-      - ./data/node-red:/data
-  homebridge:
-    image: oznu/homebridge:latest
-    container_name: homebridge
-    restart: always
-    ports:
-      - 52216:52216/tcp
-      - 8581:8581
-    environment:
-      - TZ=Europe/Moscow
-      - PGID=1000
-      - PUID=1000
-      - HOMEBRIDGE_CONFIG_UI=1
-      - HOMEBRIDGE_CONFIG_UI_PORT=8581
-    volumes:
-      - ./data/homebridge:/homebridge
+#  node-red:
+#    restart: always
+#    container_name: node-red
+#    image: nodered/node-red:latest
+#    environment:
+#      - TZ=Europe/Moscow
+#    ports:
+#      - 1880:1880
+#    volumes:
+#      - ./data/node-red:/data
+
+
+
+
+
+#  homebridge:
+#    image: oznu/homebridge:latest
+#    container_name: homebridge
+#    restart: always
+#    ports:
+#      - 52216:52216/tcp
+#      - 8581:8581
+#    environment:
+#      - TZ=Europe/Moscow
+#      - PGID=1000
+#      - PUID=1000
+#      - HOMEBRIDGE_CONFIG_UI=1
+#      - HOMEBRIDGE_CONFIG_UI_PORT=8581
+#    volumes:
+#      - ./data/homebridge:/homebridge
+
+
   zigbee2mqtt:
     container_name: zigbee2mqtt
     image: koenkk/zigbee2mqtt
     volumes:
-      - ./data:/app/data
-      - /run/udev:/run/udev:ro
+      - ./data/zigbee2mqtt:/app/data
+      - /dev:/dev
     devices:
-      - /dev/ttyACM0:/dev/ttyACM0
+      - /dev/tty.usbserial-1110:/dev/tty.usbserial-1110
     restart: always
     network_mode: host
     privileged: true
     environment:
       - TZ=Europe/Moscow
+
+  mosquitto:
+    container_name: mosquitto
+    image: eclipse-mosquitto:1.6.15
+    restart: always
+    ports:
+      - 1883:1883
