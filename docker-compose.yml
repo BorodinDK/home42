@@ -40,7 +40,7 @@ services:
       - ./data/zigbee2mqtt:/app/data
       - /dev:/dev
     devices:
-      - /dev/tty.usbserial-1110:/dev/tty.usbserial-1110
+      - /dev/ttyUSB0:/dev/ttyUSB0
     restart: always
     network_mode: host
     privileged: true
@@ -49,7 +49,7 @@ services:
 
   mosquitto:
     container_name: mosquitto
-    image: eclipse-mosquitto:1.6.15
+    image: eclipse-mosquitto:1.6.13
     restart: always
     ports:
       - 1883:1883
