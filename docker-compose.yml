@@ -28,3 +28,10 @@ services:
     restart: always
     ports:
       - 1883:1883
+  influxdb:
+    container_name: influxdb
+    image: influxdb:latest
+    ports:
+      - 8086:8086
+    volumes:
+      - ./data/influxdb:/var/lib/influxdb
