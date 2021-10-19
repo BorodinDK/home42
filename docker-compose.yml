@@ -1,53 +1,27 @@
 version: "3.7"
-
 services:
   node-red:
     restart: always
     container_name: node-red
-    image: nodered/node-red:latest
+    image: nrchkb/node-red-homekit
     environment:
       - TZ=Europe/Moscow
     network_mode: host
-#    ports:
-#      - 1880:1880
     volumes:
       - ./data/node-red:/data
-
-
-
-
-
-#  homebridge:
-#    image: oznu/homebridge:latest
-#    container_name: homebridge
-#    restart: always
-#    ports:
-#      - 52216:52216/tcp
-#      - 8581:8581
-#    environment:
-#      - TZ=Europe/Moscow
-#      - PGID=1000
-#      - PUID=1000
-#      - HOMEBRIDGE_CONFIG_UI=1
-#      - HOMEBRIDGE_CONFIG_UI_PORT=8581
-#    volumes:
-#      - ./data/homebridge:/homebridge
-
-
   zigbee2mqtt:
     container_name: zigbee2mqtt
     image: koenkk/zigbee2mqtt
     volumes:
       - ./data/zigbee2mqtt:/app/data
-      - /dev:/dev
     devices:
+      - /dev/ttyACM0:/dev/ttyACM0
       - /dev/ttyUSB0:/dev/ttyUSB0
     restart: always
     network_mode: host
     privileged: true
     environment:
       - TZ=Europe/Moscow
-
   mosquitto:
     container_name: mosquitto
     image: eclipse-mosquitto:1.6.13
