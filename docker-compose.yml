@@ -1,14 +1,11 @@
 version: "3.7"
 services:
-  node-red:
+  mosquitto:
+    container_name: mosquitto
+    image: eclipse-mosquitto:1.6.13
     restart: always
-    container_name: node-red
-    image: nrchkb/node-red-homekit
-    environment:
-      - TZ=Europe/Moscow
-    network_mode: host
-    volumes:
-      - ./data/node-red:/data
+    ports:
+      - 1883:1883
   zigbee2mqtt:
     container_name: zigbee2mqtt
     image: koenkk/zigbee2mqtt
@@ -22,16 +19,38 @@ services:
     privileged: true
     environment:
       - TZ=Europe/Moscow
-  mosquitto:
-    container_name: mosquitto
-    image: eclipse-mosquitto:1.6.13
-    restart: always
-    ports:
-      - 1883:1883
+    depends_on:
+      - mosquitto
   influxdb:
     container_name: influxdb
-    image: influxdb:latest
+    image: influxdb:1.8.10
     ports:
       - 8086:8086
     volumes:
       - ./data/influxdb:/var/lib/influxdb
+    environment:
+      - INFLUXDB_DB=home42
+      - INFLUXDB_ADMIN_USER=${INFLUXDB_USERNAME}
+      - INFLUXDB_ADMIN_PASSWORD=${INFLUXDB_PASSWORD}
+  chronograf:
+    container_name: chronograf
+    image: chronograf:latest
+    ports:
+      - 8888:8888
+    volumes:
+      - ./data/chronograf:/var/lib/chronograf
+    depends_on:
+      - influxdb
+    environment:
+      - INFLUXDB_URL=http://influxdb:8086
+      - INFLUXDB_USERNAME=${INFLUXDB_USERNAME}
+      - INFLUXDB_PASSWORD=${INFLUXDB_PASSWORD}
+  :
+    container_name: grafana
+    image: grafana/grafana:latest
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./data/grafana:/var/lib/grafana
+    depends_on:
+      - influxdb
