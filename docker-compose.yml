@@ -45,7 +45,7 @@ services:
       - INFLUXDB_URL=http://influxdb:8086
       - INFLUXDB_USERNAME=${INFLUXDB_USERNAME}
       - INFLUXDB_PASSWORD=${INFLUXDB_PASSWORD}
-  :
+  grafana:
     container_name: grafana
     image: grafana/grafana:latest
     ports:
