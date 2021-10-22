@@ -63,4 +63,4 @@ services:
     container_name: tg_bot
     image: tg_bot:latest
     environment:
-      TG_TOKEN=${TG_TOKEN}
+      - TG_TOKEN=${TG_TOKEN}
