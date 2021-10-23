@@ -1,5 +1,14 @@
 version: "3.7"
 services:
+  node-red:
+    restart: always
+    container_name: node-red
+    image: nrchkb/node-red-homekit
+    environment:
+      - TZ=Europe/Moscow
+    network_mode: host
+    volumes:
+      - ./data/node-red:/data
   mosquitto:
     container_name: mosquitto
     image: eclipse-mosquitto:1.6.13
