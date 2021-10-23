@@ -58,9 +58,9 @@ services:
       - ./data/grafana/provisioning/:/etc/grafana/provisioning
     depends_on:
       - influxdb
-  tg_bot:
+  home42_tg_bot:
+    container_name: home42_tg_bot
     restart: always
-    container_name: tg_bot
-    image: tg_bot:latest
+    image: borodin/home42_tg_bot:latest
     environment:
       - TG_TOKEN=${TG_TOKEN}
