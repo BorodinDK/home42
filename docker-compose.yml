@@ -30,46 +30,46 @@ services:
       - TZ=Europe/Moscow
     depends_on:
       - mosquitto
-  influxdb:
-    restart: always
-    container_name: influxdb
-    image: influxdb:1.8.10
-    ports:
-      - 8086:8086
-    volumes:
-      - ./data/influxdb:/var/lib/influxdb
-    environment:
-      - INFLUXDB_DB=home42
-      - INFLUXDB_ADMIN_USER=${INFLUXDB_USERNAME}
-      - INFLUXDB_ADMIN_PASSWORD=${INFLUXDB_PASSWORD}
-  chronograf:
-    restart: always
-    container_name: chronograf
-    image: chronograf:latest
-    ports:
-      - 8888:8888
-    volumes:
-      - ./data/chronograf:/var/lib/chronograf
-    depends_on:
-      - influxdb
-    environment:
-      - INFLUXDB_URL=http://influxdb:8086
-      - INFLUXDB_USERNAME=${INFLUXDB_USERNAME}
-      - INFLUXDB_PASSWORD=${INFLUXDB_PASSWORD}
-  grafana:
-    restart: always
-    container_name: grafana
-    image: grafana/grafana:latest
-    ports:
-      - 3000:3000
-    volumes:
-      - ./data/grafana/storage:/var/lib/grafana
-      - ./data/grafana/provisioning/:/etc/grafana/provisioning
-    depends_on:
-      - influxdb
-  home42_tg_bot:
-    container_name: home42_tg_bot
-    restart: always
-    image: borodin/home42_tg_bot:latest
-    environment:
-      - TG_TOKEN=${TG_TOKEN}
+#  influxdb:
+#    restart: always
+#    container_name: influxdb
+#    image: influxdb:1.8.10
+#    ports:
+#      - 8086:8086
+#    volumes:
+#      - ./data/influxdb:/var/lib/influxdb
+#    environment:
+#      - INFLUXDB_DB=home42
+#      - INFLUXDB_ADMIN_USER=${INFLUXDB_USERNAME}
+#      - INFLUXDB_ADMIN_PASSWORD=${INFLUXDB_PASSWORD}
+#  chronograf:
+#    restart: always
+#    container_name: chronograf
+#    image: chronograf:latest
+#    ports:
+#      - 8888:8888
+#    volumes:
+#      - ./data/chronograf:/var/lib/chronograf
+#    depends_on:
+#      - influxdb
+#    environment:
+#      - INFLUXDB_URL=http://influxdb:8086
+#      - INFLUXDB_USERNAME=${INFLUXDB_USERNAME}
+#      - INFLUXDB_PASSWORD=${INFLUXDB_PASSWORD}
+#  grafana:
+#    restart: always
+#    container_name: grafana
+#    image: grafana/grafana:latest
+#    ports:
+#      - 3000:3000
+#    volumes:
+#      - ./data/grafana/storage:/var/lib/grafana
+#      - ./data/grafana/provisioning/:/etc/grafana/provisioning
+#    depends_on:
+#      - influxdb
+#  home42_tg_bot:
+#    container_name: home42_tg_bot
+#    restart: always
+#    image: borodin/home42_tg_bot:latest
+#    environment:
+#      - TG_TOKEN=${TG_TOKEN}
