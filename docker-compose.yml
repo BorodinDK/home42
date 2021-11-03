@@ -1,5 +1,11 @@
 version: "3.7"
 services:
+  noip:
+    restart: always
+    container_name: noip
+    image: hypriot/rpi-noip
+    volumes:
+      - ./data/noip:/usr/local/etc/
   node-red:
     restart: always
     container_name: node-red
