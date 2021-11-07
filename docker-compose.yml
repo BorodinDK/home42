@@ -71,9 +71,10 @@ services:
     volumes:
       - ./data/grafana/storage:/var/lib/grafana
       - ./data/grafana/provisioning/:/etc/grafana/provisioning
-      - ./data/grafana/grafana.ini:/etc/grafana/grafana.ini
     depends_on:
       - influxdb
+    environment:
+      - GF_PANELS_DISABLE_SANITIZE_HTML=true
   home42_tg_bot:
     container_name: home42_tg_bot
     restart: always
