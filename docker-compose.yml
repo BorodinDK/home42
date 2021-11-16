@@ -80,6 +80,8 @@ services:
     volumes:
       - ./data/grafana/storage:/var/lib/grafana
       - ./data/grafana/provisioning/:/etc/grafana/provisioning
+    environment:
+      - GF_PANELS_DISABLE_SANITIZE_HTML=true
     depends_on:
       - influxdb
 #  home42_tg_bot:
