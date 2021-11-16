@@ -48,6 +48,15 @@ services:
       - INFLUXDB_DB=home42
       - INFLUXDB_ADMIN_USER=${INFLUXDB_USERNAME}
       - INFLUXDB_ADMIN_PASSWORD=${INFLUXDB_PASSWORD}
+  telegraf:
+    image: telegraf:latest
+    container_name: telegraf
+    depends_on:
+      - influxdb
+    links:
+      - influxdb
+    volumes:
+      - ./data/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
   chronograf:
     restart: always
     container_name: chronograf
@@ -73,9 +82,9 @@ services:
       - ./data/grafana/provisioning/:/etc/grafana/provisioning
     depends_on:
       - influxdb
-  home42_tg_bot:
-    container_name: home42_tg_bot
-    restart: always
-    image: borodin/home42_tg_bot:latest
-    environment:
-      - TG_TOKEN=${TG_TOKEN}
+#  home42_tg_bot:
+#    container_name: home42_tg_bot
+#    restart: always
+#    image: borodin/home42_tg_bot:latest
+#    environment:
+#      - TG_TOKEN=${TG_TOKEN}
