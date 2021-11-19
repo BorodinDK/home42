@@ -85,9 +85,9 @@ services:
       - GF_PANELS_DISABLE_SANITIZE_HTML=true
     depends_on:
       - influxdb
-#  home42_tg_bot:
-#    container_name: home42_tg_bot
-#    restart: always
-#    image: borodin/home42_tg_bot:latest
-#    environment:
-#      - TG_TOKEN=${TG_TOKEN}
+  home42_tg_bot:
+    container_name: home42_tg_bot
+    restart: always
+    image: borodin/home42_tg_bot:latest
+    environment:
+      - TG_TOKEN=${TG_TOKEN}
