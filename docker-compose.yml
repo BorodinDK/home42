@@ -51,6 +51,7 @@ services:
   telegraf:
     image: telegraf:latest
     container_name: telegraf
+    network_mode: host
     depends_on:
       - influxdb
     links:
