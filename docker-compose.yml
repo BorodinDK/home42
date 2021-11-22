@@ -54,10 +54,13 @@ services:
     network_mode: host
     depends_on:
       - influxdb
-    links:
-      - influxdb
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - /:/hostfs:ro
+      - /etc:/hostfs/etc:ro
+      - /proc:/hostfs/proc:ro
+      - /sys:/hostfs/sys:ro
+      - /var/run/utmp:/var/run/utmp:ro
       - ./data/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
   chronograf:
     restart: always
