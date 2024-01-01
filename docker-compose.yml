@@ -89,6 +89,8 @@ services:
       - GF_PANELS_DISABLE_SANITIZE_HTML=true
     depends_on:
       - influxdb
+    environment:
+      - GF_PANELS_DISABLE_SANITIZE_HTML=true
   home42_tg_bot:
     container_name: home42_tg_bot
     restart: always
