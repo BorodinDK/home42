@@ -1,15 +1,15 @@
 version: "3.7"
 services:
-  noip:
-    restart: always
-    container_name: noip
-    image: hypriot/rpi-noip
-    volumes:
-      - ./data/noip:/usr/local/etc/
+#  noip:
+#    restart: always
+#    container_name: noip
+#    image: hypriot/rpi-noip
+#    volumes:
+#      - ./data/noip:/usr/local/etc/
   node-red:
     restart: always
     container_name: node-red
-    image: nrchkb/node-red-homekit
+    image: nrchkb/node-red-homekit:latest-18-raspbian
     environment:
       - TZ=Europe/Moscow
     network_mode: host
@@ -17,13 +17,13 @@ services:
       - ./data/node-red:/data
   mosquitto:
     container_name: mosquitto
-    image: eclipse-mosquitto:1.6.13
+    image: eclipse-mosquitto:2.0.19
     restart: always
     ports:
       - 1883:1883
   zigbee2mqtt:
     container_name: zigbee2mqtt
-    image: koenkk/zigbee2mqtt
+    image: koenkk/zigbee2mqtt:1.40.2
     volumes:
       - ./data/zigbee2mqtt:/app/data
     devices:
@@ -39,7 +39,7 @@ services:
   influxdb:
     restart: always
     container_name: influxdb
-    image: influxdb:1.8.10
+    image: influxdb:2.7.10
     ports:
       - 8086:8086
     volumes:
@@ -79,7 +79,7 @@ services:
   grafana:
     restart: always
     container_name: grafana
-    image: grafana/grafana:latest
+    image: grafana/grafana:11.2.2
     ports:
       - 3000:3000
     volumes:
@@ -89,9 +89,9 @@ services:
       - GF_PANELS_DISABLE_SANITIZE_HTML=true
     depends_on:
       - influxdb
-  home42_tg_bot:
-    container_name: home42_tg_bot
-    restart: always
-    image: borodin/home42_tg_bot:latest
-    environment:
-      - TG_TOKEN=${TG_TOKEN}
+#  home42_tg_bot:
+#    container_name: home42_tg_bot
+#    restart: always
+#    image: borodin/home42_tg_bot:latest
+#    environment:
+#      - TG_TOKEN=${TG_TOKEN}
